@@ -1,0 +1,56 @@
+class Expense:
+    def __init__(self, date, category, amount):
+        self.date = date
+        self.category = category
+        self.amount = amount
+
+class ExpenseTracker:
+    def __init__(self):
+        self.expenses = []
+
+    def add_expense(self, expense):
+        self.expenses.append(expense)
+
+    def view_summary(self):
+        summary = {}
+        for expense in self.expenses:
+            if expense.category in summary:
+                summary[expense.category] += expense.amount
+            else:
+                summary[expense.category] = expense.amount
+        for category, amount in summary.items():
+            print(f"{category}: ${amount}")
+
+def main():
+    tracker = ExpenseTracker()
+    while True:
+        print("\nExpense Recording System")
+        print("1. Add Expense")
+        print("2. View Summary")
+        print("3. Exit")
+        choice = input("Enter your choice: ")
+
+        if choice == "1":
+            date = input("Enter date (YYYY-MM-DD): ")
+            category = input("Enter category: ")
+            amount = float(input("Enter amount: "))
+            expense = Expense(date, category, amount)
+            tracker.add_expense(expense)
+            print("Expense added successfully!")
+
+        elif choice == "2":
+            if tracker.expenses:
+                print("\nExpense Summary:")
+                tracker.view_summary()
+            else:
+                print("No expenses recorded yet.")
+
+        elif choice == "3":
+            print("Exiting program...")
+            break
+
+        else:
+            print("Invalid choice. Please try again.")
+
+if __name__ == "__main__":
+    main()
