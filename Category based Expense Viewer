@@ -1,0 +1,39 @@
+class Expense:
+    def __init__(self, amount, category, description):
+        self.amount = amount
+        self.category = category
+        self.description = description
+
+class ExpenseTracker:
+    def __init__(self):
+        self.expenses = []
+
+    def add_expense(self, amount, category, description):
+        expense = Expense(amount, category, description)
+        self.expenses.append(expense)
+
+    def get_expenses_by_category(self, category):
+        return [expense for expense in self.expenses if expense.category == category]
+
+    def get_all_categories(self):
+        return set(expense.category for expense in self.expenses)
+
+# Example usage:
+tracker = ExpenseTracker()
+
+# Add expenses
+tracker.add_expense(50, 'Food', 'Lunch at restaurant')
+tracker.add_expense(30, 'Transportation', 'Metro fare')
+tracker.add_expense(100, 'Entertainment', 'Movie tickets')
+tracker.add_expense(80, 'Food', 'Groceries')
+
+# Get all categories
+categories = tracker.get_all_categories()
+print("Available Categories:", categories)
+
+# Get expenses by category
+for category in categories:
+    expenses = tracker.get_expenses_by_category(category)
+    print(f"\n{category} Expenses:")
+    for expense in expenses:
+        print(f"Amount: {expense.amount}, Description: {expense.description}")
